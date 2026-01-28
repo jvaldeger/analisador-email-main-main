@@ -1,0 +1,86 @@
+<div class="upload-container">
+  <div class="upload-header">
+    <h2>📧 Analisar Email</h2>
+    <p>Envie um arquivo (.txt, .pdf) ou cole o texto do email para análise</p>
+  </div>
+
+  <div class="upload-options">
+    <!-- Opção de texto -->
+    <div class="text-input-section">
+      <h3 class="section-title">
+        <span>📝</span> Texto do Email
+      </h3>
+      <div class="textarea-container">
+        <textarea
+          class="email-textarea"
+          [(ngModel)]="emailText"
+          placeholder="Cole o conteúdo do email aqui..."
+          rows="10"
+        ></textarea>
+      </div>
+      <button
+        class="btn btn-primary"
+        (click)="submitText()"
+        [disabled]="!emailText.trim()"
+      >
+        <span>🔍</span> Analisar Texto
+      </button>
+    </div>
+
+    <!-- Opção de arquivo -->
+    <div class="file-input-section">
+      <h3 class="section-title">
+        <span>📎</span> Arquivo
+      </h3>
+      
+      <div
+        class="file-drop-zone"
+        [class.dragging]="isDragging"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        (click)="fileInput.click()"
+      >
+        <div class="drop-content">
+          <div class="drop-icon">📁</div>
+          <p>
+            <strong>Arraste e solte seu arquivo aqui</strong>
+          </p>
+          <p>ou clique para selecionar</p>
+          <p class="file-types">Tipos suportados: .txt, .pdf</p>
+        </div>
+      </div>
+
+      <input
+        #fileInput
+        type="file"
+        class="file-input"
+        (change)="onFileSelected($event)"
+        accept=".txt,.pdf"
+        hidden
+      />
+
+      <div *ngIf="selectedFile" class="file-info">
+        <div class="file-icon">✅</div>
+        <div class="file-details">
+          <h4>{{ selectedFile.name }}</h4>
+         <p>{{ selectedFile.size | fileSize }} • {{ selectedFile.type }}</p>
+        </div>
+      </div>
+
+      <button
+        class="btn btn-secondary"
+        (click)="submitFile()"
+        [disabled]="!selectedFile"
+      >
+        <span>📤</span> Enviar Arquivo
+      </button>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button class="btn btn-clear" (click)="clearForm()">
+      <span>🗑️</span> Limpar
+    </button>
+  </div>
+</div>

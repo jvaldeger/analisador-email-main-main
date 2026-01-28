@@ -1,0 +1,32 @@
+{
+  "name": "analisador-email",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build && echo 'Built all projects w turbo'",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "vercel-build": "cd apps/backend && pip install -r requirements.txt"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4",
+    "turbo": "^2.7.4",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@angular/cdk": "^21.1.0",
+    "@angular/material": "^21.1.0",
+    "ng": "^0.0.0",
+    "ngx-toastr": "^19.1.0"
+  }
+  
+}

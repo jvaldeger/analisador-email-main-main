@@ -1,0 +1,76 @@
+<div class="app-container">
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-container">
+        <div class="logo">📧</div>
+        <div class="logo-text">
+          <h1>Email Analyzer</h1>
+          <p>Classifique e responda emails automaticamente</p>
+        </div>
+      </div>
+      <a 
+        href="https://github.com/jvaldeger" 
+        target="_blank" 
+        class="github-link"
+      >
+        <span>⭐ GitHub</span>
+        <span>→</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="welcome-section">
+      <h2>Análise Inteligente de Emails</h2>
+      <p>
+        Utilize IA para classificar emails como <strong>Produtivo</strong> ou <strong>Improdutivo</strong> 
+        e receba respostas automáticas personalizadas. Economize tempo e aumente sua produtividade.
+      </p>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3>Upload Simples</h3>
+        <p>Envie arquivos .txt ou .pdf ou cole o texto diretamente</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>IA Poderosa</h3>
+        <p>Classificação precisa usando Processamento de Linguagem Natural</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Respostas Rápidas</h3>
+        <p>Geração automática de respostas adequadas para cada categoria</p>
+      </div>
+    </section>
+
+    <app-email-upload
+      (textSubmit)="onTextSubmit($event)"
+      (fileSubmit)="onFileSubmit($event)"
+    ></app-email-upload>
+
+    @if (analysis || error) {
+      <button class="clear-btn" (click)="clearResults()">
+        🗑️ Limpar Resultados
+      </button>
+    }
+    
+    <app-result-display
+      [analysis]="analysis"
+      [loading]="loading"
+      [error]="error"
+    ></app-result-display>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2024 Email Analyzer - Todos os direitos reservados</p>
+      <p class="attribution">
+        Desenvolvido Por João Valdeger
+      </p>
+    </div>
+  </footer>
+</div>

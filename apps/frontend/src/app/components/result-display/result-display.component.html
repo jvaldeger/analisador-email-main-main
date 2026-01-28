@@ -1,0 +1,89 @@
+<div class="result-container">
+
+  <!-- Estado de erro -->
+  @if (error && !loading) {
+    <div class="error-message">
+      <div class="error-icon">❌</div>
+      <h3>Ocorreu um erro</h3>
+      <p>{{ error }}</p>
+      <p>Tente novamente mais tarde.</p>
+    </div>
+  }
+
+  <!-- Resultado da análise -->
+  @if (analysis && !loading && !error) {
+    <div class="result-header">
+      <h2>📊 Resultado da Análise</h2>
+      <div class="category-display">
+        <span [class]="'category-badge ' + categoryClass">
+          {{ analysis.category }}
+        </span>
+        <span class="confidence-score" [style.color]="confidenceColor">
+          {{ (analysis.confidence * 100).toFixed(1) }}% de confiança
+        </span>
+      </div>
+    </div>
+
+    <div class="result-sections">
+      <!-- Resposta sugerida -->
+      <div class="result-section">
+        <h3 class="section-title">
+          <span>💡</span> Resposta Sugerida
+        </h3>
+        <div class="suggested-response">
+          <button
+            class="copy-btn"
+            (click)="copyToClipboard(analysis.suggested_response)"
+            title="Copiar para a área de transferência"
+          >
+            📋 Copiar
+          </button>
+          {{ analysis.suggested_response }}
+        </div>
+      </div>
+
+      <!-- Visualização do texto original -->
+      <div class="result-section">
+        <h3 class="section-title">
+          <span>📄</span> Visualização do Texto
+        </h3>
+        <div class="preview-text">
+          {{ analysis.original_text_preview }}
+        </div>
+      </div>
+
+      <!-- Medidor de confiança -->
+      <div class="result-section">
+        <h3 class="section-title">
+          <span>📈</span> Nível de Confiança
+        </h3>
+        <div class="confidence-meter">
+          <div class="confidence-label">
+            <span>Baixa</span>
+            <span>Alta</span>
+          </div>
+          <div class="confidence-bar">
+            <div
+              class="confidence-fill"
+              [style.width]="(analysis.confidence * 100) + '%'"
+              [style.background]="confidenceColor"
+            ></div>
+          </div>
+          <p class="confidence-explanation">
+            A confiança indica a certeza do sistema na classificação.
+            Valores acima de 80% são considerados altamente confiáveis.
+          </p>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Estado vazio (sem análise) -->
+  @if (!analysis && !loading && !error) {
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>Nenhuma análise realizada</h3>
+      <p>Envie um email para ver os resultados aqui.</p>
+    </div>
+  }
+</div>
